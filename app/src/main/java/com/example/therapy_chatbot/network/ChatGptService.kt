@@ -43,6 +43,7 @@ interface ChatGptService {
     open fun createRun(@Body request: ThreadAndRunRequest?): Call<RunResponse>
 
     @Headers(
+        "Content-Type: application/json",
         "Authorization: Bearer sk-prompt-api-key-nclcckrl2rz7u0Lmf6UVT3BlbkFJuBqayHayZTattIxAGO3C",
         "OpenAI-Beta: assistants=v2"
     )

@@ -39,7 +39,7 @@ object NetworkRepository {
         }
     }
 
-    suspend fun addMessageAndRunAssistant(messagestring: String) {
+    suspend fun addMessageAndRunAssistant(messagestring: String): String {
         try {
             val message = Messages(role = "user", content = messagestring)
             val addMessage =  apiClient.addMessageToThread(message, threadID.value)
@@ -56,11 +56,21 @@ object NetworkRepository {
                 if (runResponse.isSuccessful) {
                     var runResponseBody = runResponse.body()
                     runID.value = runResponseBody?.id ?: ""
+
                     Log.d("runID" , runID.value)
+                    Log.d("assistantID", assistantID)
+                    Log.d("threadID", threadID.value)
+                    Log.d("threadID_response", runResponseBody.toString())
+
+
                     while (runResponseBody?.status != "completed"){
-                        java.lang.Thread.sleep(5000)
+                        java.lang.Thread.sleep(1000)
                         Log.d("Waiting for assistant response",runResponseBody?.status.toString())
-                        runResponse = apiClient.getRunStatus(threadID.value, runID.value).execute()
+                        var asd = apiClient.getRunStatus(threadID.value, runID.value)
+                        Log.d("asd", asd.toString())
+                        runResponse = asd.execute()
+                        Log.d("runResponse in while", runResponse.toString())
+
                         if(runResponse.isSuccessful)
                             runResponseBody = runResponse.body()
                     }
@@ -70,9 +80,11 @@ object NetworkRepository {
                         if(threadMessagesResponse.isSuccessful){
                             val threadMessagesResponseBody = threadMessagesResponse.body()
                             Log.d("threadMessagesResponseBody",threadMessagesResponseBody.toString())
-                            println("Assistant response: ${threadMessagesResponseBody?.data}")
-                            println("Assistant response: ${threadMessagesResponseBody?.data?.lastOrNull()}")
-
+                            println("Full Assistant response: ${threadMessagesResponseBody?.data}")
+                            println("Last Assistant response: ${threadMessagesResponseBody?.data?.lastOrNull()}")
+                            val assistantResponse = threadMessagesResponseBody?.data?.firstOrNull()?.content?.last()?.text?.value.toString()
+                            println("Assistant response text: ${assistantResponse}")
+                            return assistantResponse
                         }
                         else{
                             println("Failed to get messages: ${threadMessagesResponse.errorBody()}")
@@ -91,5 +103,6 @@ object NetworkRepository {
         } catch (e: Exception) {
             e.printStackTrace()
         }
+        return "Failed to reach server"
     }
 }

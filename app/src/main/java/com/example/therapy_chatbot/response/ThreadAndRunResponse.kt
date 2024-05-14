@@ -27,7 +27,7 @@ data class RunResponse(
     @SerializedName("max_prompt_tokens"     ) var maxPromptTokens     : String?             = null,
     @SerializedName("truncation_strategy"   ) var truncationStrategy  : TruncationStrategy? = TruncationStrategy(),
     @SerializedName("incomplete_details"    ) var incompleteDetails   : String?             = null,
-    @SerializedName("usage"                 ) var usage               : String?             = null,
+    @SerializedName("usage"                 ) var usage               : Usage?              = null,
     @SerializedName("response_format"       ) var responseFormat      : String?             = null,
     @SerializedName("tool_choice"           ) var toolChoice          : String?             = null
 )
