@@ -26,8 +26,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import com.example.therapy_chatbot.MainViewModel
 import com.example.therapy_chatbot.data.Message
@@ -91,7 +89,6 @@ fun MessageCard(message: Message) {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MessageInput(viewModel: MainViewModel, modifier: Modifier) {
-    val context = LocalContext.current
     var text by remember { mutableStateOf("") }
     Row (
         modifier = modifier
@@ -112,7 +109,7 @@ fun MessageInput(viewModel: MainViewModel, modifier: Modifier) {
                     imageVector = Icons.Default.Send,
                     contentDescription = "Send",
                     modifier = Modifier.clickable {
-                        viewModel.messages.value += Message(true, text,"1547")
+                        viewModel.messages.value += Message(true, text, time = "10:00")
 
                         // viewModel.sendMessageToAssistant(text)
                         text = ""
