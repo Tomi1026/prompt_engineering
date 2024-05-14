@@ -71,7 +71,7 @@ fun MessageCard(message: Message) {
                     if (message.senderIsMe) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.secondary,
                     shape = RoundedCornerShape(8.dp)
                 )
-                .padding(16.dp, 8.dp)
+                .padding(16.dp, 9.dp)
 
         )
         {
@@ -82,7 +82,7 @@ fun MessageCard(message: Message) {
         }
         Text(
             text = message.time,
-            color = if (message.senderIsMe) MaterialTheme.colorScheme.onPrimary else MaterialTheme.colorScheme.onSecondary
+            color = if (message.senderIsMe) MaterialTheme.colorScheme.tertiary else MaterialTheme.colorScheme.tertiary,
         )
     }
 

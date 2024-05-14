@@ -2,10 +2,11 @@ package com.example.therapy_chatbot.ui.theme
 
 import androidx.compose.ui.graphics.Color
 
-val Purple80 = Color(0xFFD0BCFF)
-val PurpleGrey80 = Color(0xFFCCC2DC)
-val Pink80 = Color(0xFFEFB8C8)
+val green80 = Color(0xFFB1FF95)
+val lightgreen80 = Color(0xFFE9FFE1)
+val time80 = Color(0xFFFFFFFF)
 
-val Purple40 = Color(0xFF6650a4)
-val PurpleGrey40 = Color(0xFF625b71)
-val Pink40 = Color(0xFF7D5260)
+val DarkGreen40 = Color(0xFF2e6930)
+val Green40 = Color(0xFF449e48)
+val time40 = Color(0xFF000000)
+
