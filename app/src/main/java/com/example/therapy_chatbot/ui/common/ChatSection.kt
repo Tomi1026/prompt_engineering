@@ -1,6 +1,7 @@
 package com.example.therapy_chatbot.ui.common
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -31,6 +32,10 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.therapy_chatbot.MainViewModel
 import com.example.therapy_chatbot.data.Message
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.time.Instant
 import java.time.LocalDateTime
 import java.time.format.DateTimeFormatter
@@ -98,6 +103,8 @@ fun MessageCard(message: Message) {
 @Composable
 fun MessageInput(viewModel: MainViewModel, modifier: Modifier) {
     var text by remember { mutableStateOf("") }
+    var response by remember { mutableStateOf("") }
+
     Row (
         modifier = modifier
             .fillMaxWidth()
@@ -117,11 +124,18 @@ fun MessageInput(viewModel: MainViewModel, modifier: Modifier) {
                     imageVector = Icons.Default.Send,
                     contentDescription = "Send",
                     modifier = Modifier.clickable {
-                        viewModel.messages.value += Message(true, text, time = LocalDateTime.now().format(
+                        val temptext = text
+                        viewModel.messages.value += Message(true, temptext, time = LocalDateTime.now().format(
                             DateTimeFormatter.ofPattern("HH:mm")))
-
-                        // viewModel.sendMessageToAssistant(text)
                         text = ""
+                        GlobalScope.launch(Dispatchers.IO) {
+                            val answer = viewModel.sendMessageToAssistant(temptext)
+                            withContext(Dispatchers.Main) {
+                                // Update UI with response
+                                viewModel.messages.value += Message(false, answer, time = LocalDateTime.now().format(
+                                    DateTimeFormatter.ofPattern("HH:mm")))
+                            }
+                        }
                     }
                 )
             }

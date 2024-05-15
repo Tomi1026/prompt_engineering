@@ -41,6 +41,7 @@ object NetworkRepository {
 
     suspend fun addMessageAndRunAssistant(messagestring: String): String {
         try {
+            Log.d("addMessageAndRunAssistant", "addMessageAndRunAssistant started")
             val message = Messages(role = "user", content = messagestring)
             val addMessage =  apiClient.addMessageToThread(message, threadID.value)
             // Step 3: Add a new message to the thread
