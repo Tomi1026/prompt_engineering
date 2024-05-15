@@ -1,6 +1,6 @@
 # Házi feladat dokumentáció
 
-Feladat azonosítója és címe: Terápiás mobil applikáció, chatbot.
+Feladat azonosítója és címe: 15 - Terápiás mobil applikáció, chatbot.
 
 Beadó neve: Liska Tamás és Végh Gerzson
 
