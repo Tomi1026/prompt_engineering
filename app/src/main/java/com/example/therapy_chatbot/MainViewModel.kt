@@ -12,6 +12,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 import kotlin.coroutines.resume
 import kotlin.coroutines.resumeWithException
 import kotlin.coroutines.suspendCoroutine
@@ -20,16 +22,8 @@ class MainViewModel : ViewModel()
 {
     var messageInput= ""
     val messages= mutableStateOf<List<Message>>(mutableListOf(
-        Message(true,"asd","21:00"),
-        Message(false,"asd","21:00"),
-        Message(true,"asAGFHSSSSSSSSSSSSSSSSSSJSKZUEIWd","21:00"),
-        Message(false,"asd","21:00"),
-        Message(false,"akljfdhzgioueszrojpcxngvké.jyhgerpéof9uiwáőpfjsd","21:00"),
-        Message(false,"asselihféosigápyjrepoigzőörgődod","21:00"),
-        Message(false,"asselihféosigápyjrepoigzőörgődod","21:00"),
-        Message(false,"asselihféosigápyjrepoigzőörgődod","21:00"),
-        Message(false,"asselihféosigápyjrepoigzőörgődod","21:00"),
-        Message(false,"asselihféosigápyjrepoigzőörgődod","21:00")
+        Message(false,"Hello, how can I help you?", LocalDateTime.now().format(DateTimeFormatter.ofPattern("HH:mm"))),
+
     ))
     suspend fun sendMessageToAssistant(message: String) : String {
         return suspendCoroutine { continuation ->
