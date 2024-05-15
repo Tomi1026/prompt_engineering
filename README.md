@@ -37,4 +37,4 @@ https://chat.openai.com/share/97fa8d91-2425-4d42-b920-8611eca37aa4
 
 ## Végh Gerzson által használt promptok
 
-
+https://chat.openai.com/share/464abc39-07ff-4a9f-a56c-963262f6bb07
