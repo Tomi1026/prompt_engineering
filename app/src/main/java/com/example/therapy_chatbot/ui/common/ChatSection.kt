@@ -1,5 +1,7 @@
 package com.example.therapy_chatbot.ui.common
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -29,8 +31,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.therapy_chatbot.MainViewModel
 import com.example.therapy_chatbot.data.Message
+import java.time.Instant
+import java.time.LocalDateTime
+import java.time.format.DateTimeFormatter
 
 
+
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun WindowContent(messages: List<Message>, viewModel: MainViewModel) {
     Column(
@@ -86,6 +93,7 @@ fun MessageCard(message: Message) {
 
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MessageInput(viewModel: MainViewModel, modifier: Modifier) {
@@ -109,7 +117,8 @@ fun MessageInput(viewModel: MainViewModel, modifier: Modifier) {
                     imageVector = Icons.Default.Send,
                     contentDescription = "Send",
                     modifier = Modifier.clickable {
-                        viewModel.messages.value += Message(true, text, time = "10:00")
+                        viewModel.messages.value += Message(true, text, time = LocalDateTime.now().format(
+                            DateTimeFormatter.ofPattern("HH:mm")))
 
                         // viewModel.sendMessageToAssistant(text)
                         text = ""
